@@ -15,13 +15,11 @@ describe('Array.prototype.forEach', () => {
 
         const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-        const mockCallback = jest.fn()
+        const mockCallback = jest.fn(
+            // (...rest) => console.log('I\'m inside mock call', ...rest)
+        )
 
-        console.log(mockCallback.mock)
-        
         numbers.forEach(mockCallback)
-
-        console.log(mockCallback.mock)
 
         expect(mockCallback.mock.calls.length).toBe(numbers.length)
 
@@ -31,11 +29,13 @@ describe('Array.prototype.forEach', () => {
 
         const names = ['Ala', 'Ola', 'Ela']
 
-        const { test, get } = makeTest()
+        const mockCallback = jest.fn(
+            (...rest) => console.log('I\'m inside mock call', ...rest)
+        )
 
-        names.forEach(test)
+        names.forEach(mockCallback)
 
-        expect(get()).toBe(names.length)
+        expect(mockCallback.mock.calls.length).toBe(names.length)
 
     })
 
