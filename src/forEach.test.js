@@ -15,11 +15,15 @@ describe('Array.prototype.forEach', () => {
 
         const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-        const { test, get } = makeTest()
+        const mockCallback = jest.fn()
 
-        numbers.forEach(test)
+        console.log(mockCallback.mock)
+        
+        numbers.forEach(mockCallback)
 
-        expect(get()).toBe(numbers.length)
+        console.log(mockCallback.mock)
+
+        expect(mockCallback.mock.calls.length).toBe(numbers.length)
 
     })
 
