@@ -21,7 +21,8 @@ describe('Array.prototype.forEach', () => {
 
         numbers.forEach(mockCallback)
 
-        expect(mockCallback.mock.calls.length).toBe(numbers.length)
+        // expect(mockCallback.mock.calls.length).toBe(numbers.length)
+        expect(mockCallback).toHaveBeenCalledTimes(numbers.length)
 
     })
 
@@ -35,7 +36,7 @@ describe('Array.prototype.forEach', () => {
 
         names.forEach(mockCallback)
 
-        expect(mockCallback.mock.calls.length).toBe(names.length)
+        expect(mockCallback).toHaveBeenCalledTimes(names.length)
 
     })
 
