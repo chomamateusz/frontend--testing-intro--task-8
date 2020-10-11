@@ -1,14 +1,3 @@
-const makeTest = () => {
-    let numberOfCalls = 0
-
-    const test = (el, i, arr) => {
-        numberOfCalls = numberOfCalls + 1
-    }
-    const get = () => numberOfCalls
-
-    return { test, get }
-}
-
 describe('Array.prototype.forEach', () => {
 
     it('should call callback function X times for X length array v1', () => {
@@ -31,12 +20,50 @@ describe('Array.prototype.forEach', () => {
         const names = ['Ala', 'Ola', 'Ela']
 
         const mockCallback = jest.fn(
-            (...rest) => console.log('I\'m inside mock call', ...rest)
+            // (...rest) => console.log('I\'m inside mock call', ...rest)
         )
 
         names.forEach(mockCallback)
 
         expect(mockCallback).toHaveBeenCalledTimes(names.length)
+
+    })
+
+    it('should always call callback function X times for X length array', () => {
+
+        const names = ['Ala', 'Ola', 'Ela']
+
+        const mockCallback = jest.fn()
+
+        names.forEach(mockCallback)
+
+        expect(mockCallback).toHaveBeenCalledTimes(names.length)
+
+        mockCallback.mockReset()
+
+        names.forEach(mockCallback)
+
+        expect(mockCallback).toHaveBeenCalledTimes(names.length)
+       
+        mockCallback.mockReset()
+
+        names.forEach(mockCallback)
+
+        expect(mockCallback).toHaveBeenCalledTimes(names.length)
+
+    })
+
+    it('should call callback function with element, index and array', () => {
+
+        const names = ['Ala', 'Ola', 'Ela']
+
+        const mockCallback = jest.fn()
+
+        names.forEach(mockCallback)
+
+        expect(mockCallback.mock.calls[0]).toEqual(['Ala', 0, ['Ala', 'Ola', 'Ela']])
+        expect(mockCallback.mock.calls[1]).toEqual(['Ola', 1, ['Ala', 'Ola', 'Ela']])
+        expect(mockCallback.mock.calls[2]).toEqual(['Ela', 2, ['Ala', 'Ola', 'Ela']])
 
     })
 
